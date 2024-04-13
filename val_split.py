@@ -2,8 +2,8 @@ import os
 import shutil
 import random
 
-train_dir = 'rice/train'
-val_dir = 'rice/val1'
+train_dir = 'train datapath'
+val_dir = 'val datapath'
 
 if not os.path.exists(val_dir):
     os.makedirs(val_dir)
