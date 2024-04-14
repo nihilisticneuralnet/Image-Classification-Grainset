@@ -181,9 +181,9 @@ for i in range(len(classes)):
             classes[i], 100*class_correct[i]/class_total[i], np.sum(class_correct[i]), np.sum(class_total[i])))
     else:
         print("Test accuracy of %5s: NA" % (classes[i]))
-print("Test Accuracy of %2d%% (%2d/%2d)" % (
-            100*np.sum(class_correct)/np.sum(class_total), np.sum(class_correct), np.sum(class_total) ))
+print("Test Accuracy of %2d%% (%2d/%2d)" % ( 100*np.sum(class_correct)/np.sum(class_total), np.sum(class_correct), np.sum(class_total) ))
 
+#save the model
 example = torch.rand(1, 3, 224, 224)
 traced_script_module = torch.jit.trace(model.cpu(), example)
 traced_script_module.save("swin_transformer.pt")
