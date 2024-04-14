@@ -72,7 +72,7 @@ print(train_data_len, valid_data_len, test_data_len)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 device
 
-HUB_URL = "SharanSMenon/swin-transformer-hub:main"
+HUB_URL = "nihilisticneuralnet/swin-transformer-hub:main"
 MODEL_NAME = "swin_tiny_patch4_window7_224"
 model = torch.hub.load(HUB_URL, MODEL_NAME, pretrained=True)
 
@@ -96,6 +96,7 @@ criterion = nn.CrossEntropyLoss()
 criterion = criterion.to(device)
 optimizer = optim.SGD(model.head.parameters(), lr=0.0012, momentum=0.9, weight_decay=0.0001)
 exp_lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.97)
+
 def train_model(model, criterion, optimizer, scheduler, num_epochs=10):
     since = time.time()
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -177,13 +178,11 @@ print('Test Loss: {:.4f}'.format(test_loss))
 for i in range(len(classes)):
     if class_total[i] > 0:
         print("Test Accuracy of %5s: %2d%% (%2d/%2d)" % (
-            classes[i], 100*class_correct[i]/class_total[i], np.sum(class_correct[i]), np.sum(class_total[i])
-        ))
+            classes[i], 100*class_correct[i]/class_total[i], np.sum(class_correct[i]), np.sum(class_total[i])))
     else:
         print("Test accuracy of %5s: NA" % (classes[i]))
 print("Test Accuracy of %2d%% (%2d/%2d)" % (
-            100*np.sum(class_correct)/np.sum(class_total), np.sum(class_correct), np.sum(class_total)
-        ))
+            100*np.sum(class_correct)/np.sum(class_total), np.sum(class_correct), np.sum(class_total) ))
 
 example = torch.rand(1, 3, 224, 224)
 traced_script_module = torch.jit.trace(model.cpu(), example)
