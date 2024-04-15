@@ -83,11 +83,12 @@ n_inputs = model.head.in_features
 
 model.head = nn.Sequential(
     nn.AdaptiveAvgPool2d(1), 
-    nn.Linear(n_inputs, max(1, n_inputs// 2)),  
+    nn.Linear(n_inputs, max(1, n_inputs// 16)),  
     nn.ReLU(),
-    nn.Linear(max(1,n_inputs // 2),n_inputs // 2), 
+    nn.Linear(max(1,n_inputs // 16),n_inputs), 
     nn.ReLU(),
-    nn.Linear(max(1, n_inputs // 2), len(classes)) 
+    nn.Dropout(0.3),
+    nn.Linear(max(1, n_inputs), len(classes)) 
 )
 
 model = model.to(device)
